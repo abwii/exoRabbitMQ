@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats RabbitMQ</title>
+</head>
+<body>
+    <h1>Résultats des calculs distribués</h1>
+    <ul>
+    {% for r in results %}
+        <li>{{ r.n1 }} {{ r.op }} {{ r.n2 }} = {{ r.result }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

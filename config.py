@@ -1,0 +1,4 @@
+RABBITMQ_HOST = "localhost"
+RABBITMQ_PORT = 5673
+RABBITMQ_USER = "googoo"
+RABBITMQ_PASS = "gaga"

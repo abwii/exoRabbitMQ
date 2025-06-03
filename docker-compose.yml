@@ -1,0 +1,15 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5673:5672"     # <- Port AMQP exposé en 5673 (au lieu de 5672)
+      - "15673:15672"   # <- Interface web sur 15673
+    environment:
+      RABBITMQ_DEFAULT_USER: googoo
+      RABBITMQ_DEFAULT_PASS: gaga
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+volumes:
+  rabbitmq_data:
