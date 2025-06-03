@@ -1,5 +1,7 @@
+import threading
+import pika
+import json
 from flask import Flask, render_template
-import threading, pika, json
 from config import RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_USER, RABBITMQ_PASS
 
 app = Flask(__name__)
@@ -8,13 +10,13 @@ results = []
 def consume():
     credentials = pika.PlainCredentials(RABBITMQ_USER, RABBITMQ_PASS)
     params = pika.ConnectionParameters(RABBITMQ_HOST, RABBITMQ_PORT, '/', credentials)
-
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
     channel.queue_declare(queue='result_queue', durable=True)
 
     def callback(ch, method, properties, body):
         data = json.loads(body)
+        print(f"[Flask] Reçu : {data}")
         results.append(data)
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
@@ -27,5 +29,6 @@ def index():
     return render_template('index.html', results=results)
 
 if __name__ == '__main__':
-    threading.Thread(target=consume, daemon=True).start()
+    thread = threading.Thread(target=consume, daemon=True)
+    thread.start()
     app.run(debug=True)

@@ -5,11 +5,15 @@
     <title>Résultats RabbitMQ</title>
 </head>
 <body>
-    <h1>Résultats des calculs distribués</h1>
-    <ul>
-    {% for r in results %}
-        <li>{{ r.n1 }} {{ r.op }} {{ r.n2 }} = {{ r.result }}</li>
-    {% endfor %}
-    </ul>
+    <h1>Résultats</h1>
+    {% if results %}
+        <ul>
+        {% for r in results %}
+            <li>{{ r.n1 }} {{ r.op }} {{ r.n2 }} = {{ r.result }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun résultat reçu pour l’instant.</p>
+    {% endif %}
 </body>
 </html>
